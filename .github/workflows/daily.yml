@@ -1,0 +1,29 @@
+name: Morning weather model check
+
+on:
+  schedule:
+    # 12:00 UTC every day = 8 AM EDT / 7 AM EST / 5 AM PDT.
+    # Edit this to fit your morning. GitHub cron is always UTC.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check HRRR / NAM / GFS alignment and push to ntfy
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          LAT: ${{ vars.LAT }}
+          LON: ${{ vars.LON }}
+          LOCATION_NAME: ${{ vars.LOCATION_NAME }}
+          TEMP_TOLERANCE_F: ${{ vars.TEMP_TOLERANCE_F }}
+          PRECIP_TOLERANCE_IN: ${{ vars.PRECIP_TOLERANCE_IN }}
+          NTFY_SERVER: ${{ vars.NTFY_SERVER }}
+        run: python check_models.py
