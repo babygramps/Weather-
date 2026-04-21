@@ -173,7 +173,7 @@ def main() -> int:
     location = os.environ.get("LOCATION_NAME", "").strip() or f"{lat:.2f},{lon:.2f}"
     temp_tol = float(os.environ.get("TEMP_TOLERANCE_F") or DEFAULT_TEMP_TOL_F)
     precip_tol = float(os.environ.get("PRECIP_TOLERANCE_IN") or DEFAULT_PRECIP_TOL_IN)
-    server = os.environ.get("NTFY_SERVER", "https://ntfy.sh").strip()
+    server = (os.environ.get("NTFY_SERVER") or "https://ntfy.sh").strip()
 
     forecasts: dict[str, DayForecast] = {}
     failures: list[str] = []
