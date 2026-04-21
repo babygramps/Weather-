@@ -3,9 +3,10 @@ name: Morning weather model check
 # HRRR/NAM/GFS agreement check, pushed to ntfy.
 on:
   schedule:
-    # 12:00 UTC every day = 8 AM EDT / 7 AM EST / 5 AM PDT.
-    # Edit this to fit your morning. GitHub cron is always UTC.
-    - cron: "0 12 * * *"
+    # 15:00 UTC = 7 AM PST (winter) / 8 AM PDT (summer).
+    # GitHub cron is UTC and does not follow DST. Change to "0 14 * * *" if
+    # you prefer 7 AM PDT (= 6 AM PST in winter).
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 jobs:
