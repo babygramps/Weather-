@@ -1,5 +1,6 @@
 name: Morning weather model check
 
+# HRRR/NAM/GFS agreement check, pushed to ntfy.
 on:
   schedule:
     # 12:00 UTC every day = 8 AM EDT / 7 AM EST / 5 AM PDT.
